@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import GalleryContext from './context/GalleryContext';
 import './App.css';
+import FileUpload from './components/FileUpload';
+import Gallery from './components/Gallery';
 
-function App() {
+const App = () => {
+  const [json, setJson] = useState({});
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GalleryContext.Provider value={{ json, setJson }}>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={FileUpload} />
+          <Route exact path="/gallery" component={Gallery} />
+        </Switch>
+      </Router>
+    </GalleryContext.Provider>
   );
-}
+};
 
 export default App;
